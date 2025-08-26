@@ -1,0 +1,22 @@
+{
+  "dependencies": {},
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.5"
+  },
+  "scripts": {
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "frontend/**/*.{js,ts,tsx}": [
+      "cd frontend && bun eslint --fix",
+      "cd frontend && bun prettier --write"
+    ],
+    "backend/**/*.go": [
+      "cd backend && gofmt -w",
+      "cd backend && golangci-lint run"
+    ]
+  }
+}

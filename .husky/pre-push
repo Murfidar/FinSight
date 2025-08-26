@@ -1,0 +1,63 @@
+# #!/bin/sh
+# . "$(dirname "$0")/_/husky.sh"
+# set -e
+
+# # Use tput for colors
+# if [ -t 1 ]; then
+#   GREEN=$(tput setaf 2 || echo "")
+#   BLUE=$(tput setaf 4 || echo "")
+#   YELLOW=$(tput setaf 3 || echo "")
+#   RED=$(tput setaf 1 || echo "")
+#   NC=$(tput sgr0 || echo "") # reset
+# else
+#   GREEN=""; BLUE=""; YELLOW=""; RED=""; NC=""
+# fi
+
+# print_colored() {
+#   printf "${2}%s${NC}\n" "$1"
+# }
+
+# print_colored "🔍 Checking changes to decide what to test/build..." "$BLUE"
+
+# # Get the commits being pushed
+# LOCAL_REF=$(git rev-parse @)
+# REMOTE_REF=$(git rev-parse @{u} 2>/dev/null || echo "")
+
+# if [ -n "$REMOTE_REF" ]; then
+#   CHANGED_FILES=$(git diff --name-only "$REMOTE_REF"...HEAD)
+# else
+#   # First push (no upstream yet), compare all history
+#   CHANGED_FILES=$(git diff --name-only "$LOCAL_REF")
+# fi
+
+# echo "$CHANGED_FILES" | sed 's/^/  - /'
+
+# # Detect if frontend or backend files changed
+# FRONTEND_CHANGED=false
+# BACKEND_CHANGED=false
+
+# echo "$CHANGED_FILES" | grep -q "^frontend/" && FRONTEND_CHANGED=true
+# echo "$CHANGED_FILES" | grep -q "^backend/" && BACKEND_CHANGED=true
+
+# # Run checks accordingly
+# if [ "$FRONTEND_CHANGED" = true ]; then
+#   print_colored "🚀 Running frontend tests/build..." "$YELLOW"
+#   cd frontend
+#   bun run build || { print_colored "❌ Frontend build failed" "$RED"; exit 1; }
+#   cd ..
+#   print_colored "✅ Frontend checks passed" "$GREEN"
+# fi
+
+# if [ "$BACKEND_CHANGED" = true ]; then
+#   print_colored "🚀 Running backend tests/build..." "$YELLOW"
+#   cd backend
+#   go build ./... || { print_colored "❌ Backend build failed" "$RED"; exit 1; }
+#   cd ..
+#   print_colored "✅ Backend checks passed" "$GREEN"
+# fi
+
+# if [ "$FRONTEND_CHANGED" = false ] && [ "$BACKEND_CHANGED" = false ]; then
+#   print_colored "📁 No relevant changes in frontend/backend – skipping tests/build" "$GREEN"
+# fi
+
+# print_colored "✅ Pre-push checks completed successfully!" "$GREEN"
