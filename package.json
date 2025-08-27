@@ -11,12 +11,12 @@
   },
   "lint-staged": {
     "frontend/**/*.{js,ts,tsx}": [
-      "cd frontend && bun eslint --fix",
-      "cd frontend && bun prettier --write"
+      "bun --cwd frontend eslint --fix",
+      "bun --cwd frontend prettier --write"
     ],
     "backend/**/*.go": [
-      "cd backend && gofmt -w",
-      "cd backend && golangci-lint run"
+      "gofmt -w",
+      "golangci-lint run"
     ]
   }
 }

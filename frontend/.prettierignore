@@ -1,0 +1,9 @@
+# Ignore artifacts:
+build
+.next
+node_modules
+public
+*.svg
+
+# Ignore all HTML files:
+*.html
