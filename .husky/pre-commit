@@ -1,27 +1,27 @@
-# #!/bin/sh
-# . "$(dirname "$0")/_/husky.sh"
+#!/bin/sh
+set -e
 
-# # Use tput for cross-platform color support
-# if [ -t 1 ]; then
-#   GREEN=$(tput setaf 2 || echo "")
-#   BLUE=$(tput setaf 4 || echo "")
-#   YELLOW=$(tput setaf 3 || echo "")
-#   RED=$(tput setaf 1 || echo "")
-#   NC=$(tput sgr0 || echo "") # No Color
-# else
-#   GREEN=""
-#   BLUE=""
-#   YELLOW=""
-#   RED=""
-#   NC=""
-# fi
+# Use tput for cross-platform color support
+if [ -t 1 ]; then
+  GREEN=$(tput setaf 2 || echo "")
+  BLUE=$(tput setaf 4 || echo "")
+  YELLOW=$(tput setaf 3 || echo "")
+  RED=$(tput setaf 1 || echo "")
+  NC=$(tput sgr0 || echo "") # No Color
+else
+  GREEN=""
+  BLUE=""
+  YELLOW=""
+  RED=""
+  NC=""
+fi
 
-# print_colored() {
-#   printf "${2}%s${NC}\n" "$1"
-# }
+print_colored() {
+  printf "${2}%s${NC}\n" "$1"
+}
 
-# # Print what will be checked
-# print_colored "🔍 Running lint-staged..." "$YELLOW"
+# Print what will be checked
+print_colored "🔍 Running lint-staged..." "$YELLOW"
 
-# bunx lint-staged
+bunx lint-staged
 
